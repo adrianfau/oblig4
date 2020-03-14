@@ -1,5 +1,5 @@
 class BlaaResept extends Resept {
-  
+  //Test
   public BlaaResept(Legemiddel lm,  Lege ul, int pId, int reit) {
     super(lm, ul, pId, reit);
   }

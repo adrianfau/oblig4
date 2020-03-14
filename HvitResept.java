@@ -1,7 +1,7 @@
 class HvitResept extends Resept {
 
-  public HvitResept(Legemiddel lm,  Lege ul, int pId, int reit) {
-    super(lm, ul, pId, reit);
+  public HvitResept(Legemiddel lm,  Lege ul, Pasient p, int reit) {
+    super(lm, ul, p, reit);
   }
 
   public String farge() {
