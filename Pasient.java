@@ -27,11 +27,11 @@ class Pasient {
   }
 
   public void leggTilRespet(Resept r) {
-    resepter.leggTil(r);
+    resepter.leggPaa(r);
   }
 
   public void fjernResept() {
-    resepter.fjern();
+    resepter.taAv();
   }
 
   public Resept hentResepter() {
