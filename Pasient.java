@@ -36,7 +36,7 @@ class Pasient {
 
   public Resept hentResepter() {
     for (int i = 0; i < resepter.stoerrelse(); i++) {
-
+      resepter.hent(i);
     }
   }
 
