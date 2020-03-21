@@ -1,17 +1,17 @@
 abstract class Resept {
   protected Legemiddel legemiddel;
   protected Lege utskrivendeLege;
-  protected int pasientId;
+  protected Pasient pasient;
   protected int reit;
 
   protected static int id_count = 0;
   protected int id = 0;
 
-  public Resept(Legemiddel lm, Lege ul, int pId, int r) {
+  public Resept(Legemiddel lm, Lege ul, Pasient p, int r) {
 
     legemiddel = lm;
     utskrivendeLege = ul;
-    pasientId = pId;
+    pasient = p;
     reit = r;
 
     id = id_count++;
@@ -32,7 +32,7 @@ abstract class Resept {
   }
 
   public int hentPasientId() {
-    return pasientId;
+    return pasient.hentId();
   }
 
   public int hentReit() {
