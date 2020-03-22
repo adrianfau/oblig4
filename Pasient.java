@@ -2,12 +2,11 @@ class Pasient {
   String navn;
   String fodselsNr;
   int id;
-  Stabel<Resept> resepter;
+  Stabel<Resept> resepter = new Stabel<Resept>();
 
   static int id_count = 0;
 
   public Pasient(String n, String fNr) {
-    resepter = new Stabel<Resept>();
 
     navn = n;
     fodselsNr = fNr;
@@ -35,9 +34,11 @@ class Pasient {
     resepter.taAv();
   }
 
-  public void hentResepter() {
+  public Stabel<Resept> hentResepter() {
     for (int i = 0; i < resepter.stoerrelse(); i++) {
       System.out.println(resepter.hent(i));
     }
+
+    return resepter;
   }
 }
