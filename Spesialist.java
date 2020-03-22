@@ -1,5 +1,7 @@
 class Spesialist extends Lege implements Godkjenningsfritak {
 
+  private int kontrollId;
+
   public Spesialist(String n, int kId) {
     super(n);
 
