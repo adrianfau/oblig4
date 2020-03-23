@@ -1,10 +1,53 @@
-class Lenkeliste<T> implements Liste<T>{
+import java.util.Iterator;
+
+public class Lenkeliste<T> implements Liste<T> {
+
   public Node ny_node = new Node(null);
+
   public class Node{
     public Node node = null;
     public T t;
     Node(T x){
       this.t = x;
+    }
+  }
+
+  //henter ut foerste node
+  public Node getStartNode() {
+    return ny_node;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new LenkelisteIterator<>(this);
+  }
+
+  public class LenkelisteIterator<T> implements Iterator<T> {
+    Node innevaerendeNode;
+
+    //Initierer peker/innevaerende node til starten av lenkelisten
+    public LenkelisteIterator(Lenkeliste lenkeliste) {
+      innevaerendeNode = lenkeliste.getStartNode();
+    }
+
+    @Override
+    //Returnerer false hvis neste element ikke eksisterer
+    public boolean hasNext() {
+        if(innevaerendeNode != null) {
+          return true;
+        }
+        return false;
+    }
+
+    @Override
+    //returnerer data i gjeldende node og oppdaterer pekeren til neste node
+    public T next() {
+        if(innevaerendeNode.t != null) {
+          T innhold = (T) innevaerendeNode.t;
+          innevaerendeNode = innevaerendeNode.node;
+          return innhold;
+        }
+        return null;
     }
   }
 
@@ -20,7 +63,7 @@ class Lenkeliste<T> implements Liste<T>{
   }
 
   //metoden legger elementet i slutten av lista
-  public void leggTil(T ){
+  public void leggTil(T x){
     if (ny_node.node==null){
       ny_node.node = new Node(x);
       System.out.println(ny_node.node.t);
