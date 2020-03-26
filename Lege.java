@@ -12,9 +12,9 @@ class Lege implements Comparable<Lege>{
   }
 
   public Lenkeliste<Resept> hentUtskrevedeResepter() {
-    for (int i = 0; i < utskrevedeResepter.stoerrelse(); i++) {
-      System.out.println(utskrevedeResepter.hent(i));
-    }
+    //for (int i = 0; i < utskrevedeResepter.stoerrelse(); i++) {
+    //  System.out.println(utskrevedeResepter.hent(i));
+    //}
     return utskrevedeResepter;
   }
 

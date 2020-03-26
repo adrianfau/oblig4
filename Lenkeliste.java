@@ -102,9 +102,9 @@ class Lenkeliste<T> implements Liste<T>{
     a.node = fjern.node;
     return fjern.t;
   }
-  
+
   //new, C3
-  public Iterator<T> iterator(){
-    return new LenkelisteIterator();
-  }
+  //public Iterator<T> iterator(){
+  //  return new LenkelisteIterator();
+  //}
 }
