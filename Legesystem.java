@@ -19,6 +19,7 @@ public class Legesystem {
 
   //Les-fra-fil metode
   private static void lesFraFil(File fil) {
+
     Scanner scanner = null;
 
     try {
@@ -38,6 +39,7 @@ public class Legesystem {
       if (info[1].compareTo("Pasienter") == 0) {
 
         while(scanner.hasNextLine()) {
+          
           try {
             innlest = scanner.nextLine();
             info = innlest.split(",");
@@ -68,6 +70,7 @@ public class Legesystem {
               info = innlest.split(",");
               Legemiddel x;
 
+
               if(innlest.charAt(0) == '#'){
                   break;
               }
@@ -88,6 +91,7 @@ public class Legesystem {
                 styrke = Integer.parseInt(info[4]);
                 x = new Vanedannende(navn, pris, virkestoff, styrke);
                 antallVanedannende++;
+
                 legemiddelListe.leggTil(x);
 
               } else if (legemiddel[1].compareTo("narkotisk") == 0){
@@ -95,6 +99,7 @@ public class Legesystem {
                 styrke = Integer.parseInt(info[4]);
                 x = new Narkotisk(navn, pris, virkestoff, styrke);
                 antallNarkotiske++;
+                
                 legemiddelListe.leggTil(x);
 
               }
@@ -109,6 +114,7 @@ public class Legesystem {
       else if(info[1].compareTo("Leger") == 0){
 
           while(scanner.hasNextLine()){
+
 
             try {
               innlest = scanner.nextLine();
@@ -127,11 +133,14 @@ public class Legesystem {
 
                 x = new Lege(navn);
                 legeListe.leggTil(x);
+                
               } else {
 
                 x = new Spesialist(navn, kontrollid);
                 legeListe.leggTil(x);
+                
               }
+              
             } catch(Exception e) {
               System.out.println("Ignorerer ugyldig objekt. Forventet (navn, [kontrollId]), mottok " + info);
             }
@@ -178,6 +187,7 @@ public class Legesystem {
                 pasient = pasientListe.hent(i);
                 break;
               }
+              
             }
 
             //Sjekker type og lar lege skrive ny resept.
