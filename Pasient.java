@@ -44,6 +44,6 @@ class Pasient {
   
   @Override
   public String toString(){
-  return super.toString() + "\n Navn: " +  hentNavn() + "\n id: " + hentid() + "\n fodselsNr" + hentFodselsnr();
+  "Navn: " +  hentNavn() + "\n id: " + hentid() + "\n fodselsNr" + hentFodselsnr();
   }
 }
