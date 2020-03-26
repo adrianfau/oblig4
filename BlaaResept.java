@@ -1,7 +1,7 @@
 class BlaaResept extends Resept {
-  
-  public BlaaResept(Legemiddel lm,  Lege ul, int pId, int reit) {
-    super(lm, ul, pId, reit);
+  //Test
+  public BlaaResept(Legemiddel lm,  Lege ul, Pasient p, int reit) {
+    super(lm, ul, p, reit);
   }
 
   public String farge() {
