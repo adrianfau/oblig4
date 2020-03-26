@@ -13,26 +13,104 @@ public class Legesystem {
   private static int antallVanedannende;
   private static int antallNarkotiske;
 
-  public static void E3(){
+  public static void E3() {
     return;
   }
 
-  public static void E4(){
+  public static void E4() {
     return;
   }
 
-  public static void E5(){
+  public static void E5() {
     return;
   }
 
-  public static void E6(){
-    return;
+  public static void E6() {
+    //Printer antall vanedannende og narkotiske
+    System.out.println("Antall utskrevede vandedannende legemidler: " + antallVanedannende);
+    System.out.println("Antall utskrevede narkotiske legemidler: " + antallNarkotiske);
+
+    //Printer alle leger som har skrevet ut narkotiske, inkl hvor mange
+    System.out.println("Leger:");
+    for (int i = 0; i < legeListe.stoerrelse(); i++) {
+
+      Lege tempLege = legeListe.hent(i);
+      int tempLegeNark = 0;
+      Liste<Resept> tempLegeListe = tempLege.hentUtskrevedeResepter();
+
+      for (int j = 0; j < tempLegeListe.stoerrelse(); j++) {
+        if (tempLegeListe.hent(j).hentLegemiddel() instanceof Narkotisk) {
+          tempLegeNark++;
+        }
+      }
+
+      if (tempLegeNark > 0) {
+        System.out.println("Lege " + tempLege.hentNavn() + " har skrevet ut " + tempLegeNark
+         + " narkotiske legemidler");
+      }
+    }
+
+    //Printer alle pasienter som har fått narkotiske, inkl hvor mange
+    System.out.println("Pasienter:");
+    for (int i = 0; i < pasientListe.stoerrelse(); i++) {
+      Pasient tempPas = pasientListe.hent(i);
+      int tempPasNark = 0;
+      Liste<Resept> tempPasListe = tempPas.hentResepter();
+
+      for (int j = 0; j < tempPasListe.stoerrelse(); j++) {
+        if (tempPasListe.hent(j).hentLegemiddel() instanceof Narkotisk) {
+          tempPasNark++;
+        }
+      }
+      if (tempPasNark > 0) {
+        System.out.println("Pasient " + tempPas.hentNavn() + " har fått utskrevet "
+        + tempPasNark + " narkotiske resepter");
+      }
+    }
+
   }
 
-  public static void E8(){
-    return;
-  }
+  public static void E8() {
+    throws IOException {
+      PrintWriter writer = new PrintWriter("utFil.txt", "UTF-8");
 
+      int i = 0;
+      int j = 0;
+      int k = 0;
+      int l = 0;
+
+      writer.println("# Pasienter (navn,fnr)");
+      while (i < pasientListe.stoerrelse()) {
+        Pasient temp = pasientListe.hent(i);
+        writer.println(temp.hentNavn() + "," + temp.hentFodselsnr());
+        i++
+      }
+
+      writer.println("# Legemidler (navn,type,pris,virkestoff,[styrke])");
+      while (j < legemiddelListe.stoerrelse()) {
+        Legemiddel temp = legemiddelListe.hent(j);
+        if (temp instanceof Vanlig) {
+          writer.println(temp.hentNavn() + "," + "vanlig" + "," + temp.hentPris() + "," + temp.hentVirkestoff());
+        } else if (temp instanceof Narkotisk) {
+          writer.println(temp.hentNavn() + "," + "narkotisk" + temp.hentPris() + ","
+          + temp.hentVirkestoff() + "," + temp.hentNarkotiskStyrke());
+        } else if (temp instanceof Vanedannende) {
+          writer.println(temp.hentNavn() + "," + "vanedannende" + "," + temp.hentPris() + ","
+          + temp.hentVirkestoff() + "," + temp.hentVanedannendeStyrke())
+        }
+      }
+
+      writer.println("# Leger (navn,kontrollid / 0 hvis vanlig lege)");
+      while (k < legeListe.stoerrelse();) {
+
+      }
+
+      writer.println("# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])");
+      while (l < reseptListe.stoerrelse()) {
+
+      }
+    }
+  }
 
   public static void main(String[] args){
     boolean avslutt = false;
@@ -79,9 +157,10 @@ public class Legesystem {
         System.out.println(e);
         System.out.println("Det er ikke et gyldig valg.");
       }
-      
-  }
 
+    }
+
+  }
   //Les-fra-fil metode
   private void lesFraFil(File fil) {
 
