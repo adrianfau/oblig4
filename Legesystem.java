@@ -1,77 +1,365 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Legesystem {
 
-    private Lenkeliste<Pasient> pasienter;
-    private Lenkeliste<Resept> resepter;
-    private Scanner scanner;
+  //Lager alle listene vi kan trenge i denne oppgaven
+  static Liste<Pasient> pasientListe = new Lenkeliste<Pasient>();
+  static Liste<Legemiddel> legemiddelListe = new Lenkeliste<Legemiddel>();
+  static Liste<Lege> legeListe = new SortertLenkeliste<Lege>();
+  static Liste<Resept> reseptListe = new Lenkeliste<Resept>();
+
+  //Lager statistikk - tellere for programmet
+  private static int antallVanedannende;
+  private static int antallNarkotiske;
+
+  public static void E3(){
+    return;
+  }
+
+  public static void E4(){
+    return;
+  }
+
+  public static void E5(){
+    return;
+  }
+
+  public static void E6(){
+    return;
+  }
+
+  public static void E8(){
+    return;
+  }
 
 
-    public Legesystem() {
-        pasienter = new Lenkeliste<Pasient>();
-        resepter = new Lenkeliste<Resept>();
-        scanner = new Scanner(System.in);
-    }
+  public static void main(String[] args){
+    boolean avslutt = false;
+    String input;
+    int valg = 0;
+    Scanner scan = new Scanner(System.in);
 
-    private void brukResept() {
-        int antallPasienter = 0;
+    while (!avslutt){
+      System.out.println("Vennligst velg en av disse valgmulighetene:"
+        + "\n1. Skrive ut en fullstendig oversikt over pasienter, leger, legemidler og resepter"
+        + "\n2. Opprette og legg til nye elementer i systemet."
+        + "\n3. Bruke en gitt resept fra listen til en pasient."
+        + "\n4. Skrive ut forskjellige former for statistikk."
+        + "\n5. Skrive all data til fil."
+        + "\n0. Avslutt program.");
+      try {
+        input = scan.next();
+        valg = Integer.parseInt(input);
+        // Cases går til funksjonalitene i oppgavene
+        switch (valg){
+          case 1:
+            E3();
+            break;
+          case 2:
+            E4();
+            break;
+          case 3:
+            E5();
+            break;
+          case 4:
+            E6();
+            break;
+          case 5:
+            E8();
+            break;
+          case 0:
+            avslutt = true;
+            break;
+          default:
+            System.out.println("Det er ikke et gyldig valg.");
+        }
+      }
+      catch(Exception e) {
+        System.out.println(e);
+        System.out.println("Det er ikke et gyldig valg.");
+      }
+      
+  }
 
-        //Melding til bruker om at ingen pasienter er lagt til i liste
-        if(pasienter.stoerrelse() <= 0) {
-            System.out.println("Ingen pasienter funnet");
-            return;
+  private void brukResept() {
+    int antallPasienter = 0;
+    Scanner scanner = new Scanner(System.in);
+
+      //Melding til bruker om at ingen pasienter er lagt til i liste
+      if(pasientListe.stoerrelse() <= 0) {
+        System.out.println("Ingen pasienter funnet");
+        return;
+      }
+
+      //--------PASIENT---------
+      System.out.println("Hvilken pasient vil du se resept for?");
+
+      //Skriver ut pasienter bruker kan velge, tar inn valgt pasient
+      for(Pasient pasient : pasientListe) {
+        System.out.println(pasient.hentId() + ": " + pasient.hentNavn() + "(fnr " + pasient.hentFodselsnr() + ")");
+        antallPasienter++;
+      }
+
+      int valgtPasient;
+
+      //Feilsjekking av input fra bruker
+      try {
+        valgtPasient = scanner.nextInt();
+      }catch (NumberFormatException e){
+        valgtPasient = -1;
+      }
+
+      //-----RESEPT------
+      if(valgtPasient >= 0 && valgtPasient < antallPasienter) {
+        Pasient pasient = pasientListe.hent(valgtPasient);
+        System.out.println("Valgt pasient: " + pasient.hentNavn() + "(fnr" + pasient.hentFodselsnr() + ")\n" + "Hvilken resept vil du bruke?");
+
+        int antalltResepter = 0;
+
+        for (Resept resept : pasient.hentResepter()) {
+          System.out.println(antalltResepter + ": " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
+          antalltResepter++;
         }
 
-        //--------PASIENT---------
-        System.out.println("Hvilken pasient vil du se resept for?");
+        int valgtResept;
 
-        //Skriver ut pasienter bruker kan velge, tar inn valgt pasient
-        for(Pasient pasient : pasienter) {
-            System.out.println(pasient.hentId() + ": " + pasient.hentNavn() + "(fnr " + pasient.hentFodselsnr() + ")");
-            antallPasienter++;
-        }
-
-        int valgtPasient;
-
-        //Feilsjekking av input fra bruker
         try {
-            valgtPasient = scanner.nextInt();
-        }catch (NumberFormatException e){
-            valgtPasient = -1;
+          valgtResept = scanner.nextInt();
+        } catch (NumberFormatException e) {
+          valgtResept = -1;
         }
 
-        //-----RESEPT------
-        if(valgtPasient >= 0 && valgtPasient < antallPasienter) {
-            Pasient pasient = pasienter.hent(valgtPasient);
-            System.out.println("Valgt pasient: " + pasient.hentNavn() + "(fnr" + pasient.hentFodselsnr() + ")\n" + "Hvilken resept vil du bruke?");
+        Resept oensketResept = pasient.hentResepter().hent(valgtResept);
 
-            int antalltResepter = 0;
+        try {
+          pasient.reseptListe.hent(valgtResept).bruk();
 
-            for (Resept resept : pasient.hentResepter()) {
-                System.out.println(antalltResepter + ": " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
-                antalltResepter++;
-            }
+          System.out.println("Brukte resept paa " + oensketResept.hentLegemiddel().hentNavn() + ". Antall gjenværende reit: " + oensketResept.hentReit());
 
-            int valgtResept;
-
-            try {
-                valgtResept = scanner.nextInt();
-            } catch (NumberFormatException e) {
-                valgtResept = -1;
-            }
-
-            Resept oensketResept = pasient.hentResepter().hent(valgtResept);
-
-            try {
-                pasient.resepter.hent(valgtResept).bruk();
-
-                System.out.println("Brukte resept paa " + oensketResept.hentLegemiddel().hentNavn() + ". Antall gjenværende reit: " + oensketResept.hentReit());
-
-            } catch (Exception e) {
-                System.out.println("Kunne ikke bruke resept paa " + oensketResept.hentLegemiddel().hentNavn() + " (ingen gjenvaerende reit).");
-            }
-        } else {
-            System.out.println("Ugyldig valg. Gaar tilbake til hovedmeny");
+        } catch (Exception e) {
+          System.out.println("Kunne ikke bruke resept paa " + oensketResept.hentLegemiddel().hentNavn() + " (ingen gjenvaerende reit).");
         }
+      } else {
+        System.out.println("Ugyldig valg. Gaar tilbake til hovedmeny");
+      }
     }
+
+  //Les-fra-fil metode
+  private void lesFraFil(File fil) {
+
+    Scanner scanner = null;
+
+    try {
+      scanner = new Scanner(fil);
+    } catch(FileNotFoundException e) {
+      System.out.println("Ingen fil funnet");
+      return;
+    }
+
+    String innlest = scanner.nextLine();
+
+    while(scanner.hasNextLine()) {
+
+      String[] info = innlest.split(" ");
+
+      //Sjekker hvilket objekt som skal lages utifra informasjon i fil, og lager tilsvarende objekt
+      if (info[1].compareTo("Pasienter") == 0) {
+
+        while(scanner.hasNextLine()) {
+
+          try {
+            innlest = scanner.nextLine();
+            info = innlest.split(",");
+
+            if (innlest.charAt(0) == '#') {
+              break;
+            }
+            //Pasient(String navn, int fnr);
+            String navn = info[0];
+            String fnr = info[1];
+
+            Pasient nyPasient = new Pasient(navn, fnr);
+            pasientListe.leggTil(nyPasient);
+          } catch(Exception e) {
+            System.out.println("Ignorerer ugyldig objekt. Forventet (navn, fnr), mottok " + info);
+          }
+
+        }
+
+      }
+      //Legger inn Legemidlene
+      else if(info[1].compareTo("Legemidler") == 0){
+
+          while(scanner.hasNextLine()){
+
+            try {
+              innlest = scanner.nextLine();
+              info = innlest.split(",");
+              Legemiddel x;
+
+
+              if(innlest.charAt(0) == '#'){
+                  break;
+              }
+              //Legemiddel(String navn, Type type, double pris, double virkestoff, int [styrke]);
+              String navn = info[0];
+              Double pris = Double.valueOf(info[2]);
+              Double virkestoff = Double.valueOf(info[3]);
+              int styrke;
+
+              String[] legemiddel = innlest.split(", ");
+              if(legemiddel[1].compareTo("vanlig") == 0){
+
+                x = new Vanlig(navn, pris, virkestoff);
+                legemiddelListe.leggTil(x);
+
+              } else if(legemiddel[1].compareTo("vanedannende") == 0){
+
+                styrke = Integer.parseInt(info[4]);
+                x = new Vanedannende(navn, pris, virkestoff, styrke);
+                antallVanedannende++;
+
+                legemiddelListe.leggTil(x);
+
+              } else if (legemiddel[1].compareTo("narkotisk") == 0){
+
+                styrke = Integer.parseInt(info[4]);
+                x = new Narkotisk(navn, pris, virkestoff, styrke);
+                antallNarkotiske++;
+
+                legemiddelListe.leggTil(x);
+
+              }
+            } catch(Exception e) {
+              System.out.println("Ignorerer ugylidg objekt. Forventet (navn, type, pris, virkestoff, [styrke]), mottok " + info);
+            }
+
+          }
+
+      }
+      //Legger inn leger
+      else if(info[1].compareTo("Leger") == 0){
+
+          while(scanner.hasNextLine()){
+
+
+            try {
+              innlest = scanner.nextLine();
+              info = innlest.split(",");
+              Lege x;
+
+              if(innlest.charAt(0) == '#'){
+                  break;
+              }
+              //Lege(String navn, int [kontrollId])
+              String navn = info[0];
+              int kontrollId;
+
+              int kontrollid = Integer.parseInt(info[1]);
+              if(kontrollid == 0){
+
+                x = new Lege(navn);
+                legeListe.leggTil(x);
+
+              } else {
+
+                x = new Spesialist(navn, kontrollid);
+                legeListe.leggTil(x);
+
+              }
+
+            } catch(Exception e) {
+              System.out.println("Ignorerer ugyldig objekt. Forventet (navn, [kontrollId]), mottok " + info);
+            }
+
+          }
+
+      }
+      //Legger inn Resepter
+      else if(info[1].compareTo("Resepter") == 0){
+
+        while(scanner.hasNextLine()){
+
+          try {
+            innlest = scanner.nextLine();
+            info = innlest.split(",");
+            //Resepter(legemiddelNr, legeNavn, pasientId, type, [reit])
+
+            Legemiddel legemiddel = null;
+            Lege lege = null;
+            Pasient pasient = null;
+            int reit = 0;
+
+            Resept nyResept = null;
+
+            //Finner legemiddel
+            for (int i = 0; i < legemiddelListe.stoerrelse(); i++) {
+              if (legemiddelListe.hent(i).hentId() == Integer.parseInt(info[0])) {
+                legemiddel = legemiddelListe.hent(i);
+                break;
+              }
+            }
+
+            //Finner lege
+            for (int i = 0; i < legeListe.stoerrelse(); i++) {
+              if (legeListe.hent(i).hentNavn().compareTo(info[1]) == 0) {
+                lege = legeListe.hent(i);
+                break;
+              }
+            }
+
+            //Finner pasient
+            for (int i = 0; i < pasientListe.stoerrelse(); i++) {
+              if (pasientListe.hent(i).hentId() == Integer.parseInt(info[2])) {
+                pasient = pasientListe.hent(i);
+                break;
+              }
+
+            }
+
+            //Sjekker type og lar lege skrive ny resept.
+              try {
+                if (info[3].compareTo("p") == 0) {
+                  nyResept = lege.skrivPResept(legemiddel, pasient);
+                } else {
+                  reit = Integer.parseInt(info[4]);
+                }
+
+                if (info[3].compareTo("blaa") == 0) {
+                  nyResept = lege.skrivBlaaResept(legemiddel, pasient, reit);
+                } else if (info[3].compareTo("hvit") == 0) {
+                  nyResept = lege.skrivHvitResept(legemiddel, pasient, reit);
+                } else if (info[3].compareTo("millitaer") == 0) {
+                  nyResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
+                }
+
+                reseptListe.leggTil(nyResept);
+              } catch(UlovligUtskrift e) {}
+
+          } catch(Exception f) {
+            System.out.println("Ignorerer Ugyldig objekt. Forventet (legemiddelNr, legeNavn, type, [reit]), mottok " + info);
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  //private void Statistikk() {
+  //  for (Lege lege : legeListe) {
+  //    legeListe = lege.hentUtskrevedeResepter();
+  //    for (Resept resept : legeListe) {
+  //      if (resept.hentLegemiddel() instanceof Narkotisk) {
+  //        System.out.println("Denne legen har skrevet ut et narkotisk legemiddel");
+  //        break;
+  //      }
+  //    }
+  //  }
+  //}
+
 }
