@@ -20,7 +20,7 @@ class Lenkeliste<T> implements Liste<T>{
   }
 
   //metoden legger elementet i slutten av lista
-  public void leggTil(T ){
+  public void leggTil(T x){
     if (ny_node.node==null){
       ny_node.node = new Node(x);
       System.out.println(ny_node.node.t);
@@ -102,9 +102,9 @@ class Lenkeliste<T> implements Liste<T>{
     a.node = fjern.node;
     return fjern.t;
   }
-  
+
   //new, C3
-  public Iterator<T> iterator(){
-    return new LenkelisteIterator();
-  }
+  //public Iterator<T> iterator(){
+  //  return new LenkelisteIterator();
+  //}
 }
