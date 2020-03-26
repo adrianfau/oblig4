@@ -79,9 +79,9 @@ public class Legesystem {
         System.out.println(e);
         System.out.println("Det er ikke et gyldig valg.");
       }
-
+  }
   //Les-fra-fil metode
-  private static void lesFraFil(File fil) {
+  private void lesFraFil(File fil) {
 
     Scanner scanner = null;
 
@@ -102,7 +102,7 @@ public class Legesystem {
       if (info[1].compareTo("Pasienter") == 0) {
 
         while(scanner.hasNextLine()) {
-          
+
           try {
             innlest = scanner.nextLine();
             info = innlest.split(",");
@@ -162,7 +162,7 @@ public class Legesystem {
                 styrke = Integer.parseInt(info[4]);
                 x = new Narkotisk(navn, pris, virkestoff, styrke);
                 antallNarkotiske++;
-                
+
                 legemiddelListe.leggTil(x);
 
               }
@@ -196,14 +196,14 @@ public class Legesystem {
 
                 x = new Lege(navn);
                 legeListe.leggTil(x);
-                
+
               } else {
 
                 x = new Spesialist(navn, kontrollid);
                 legeListe.leggTil(x);
-                
+
               }
-              
+
             } catch(Exception e) {
               System.out.println("Ignorerer ugyldig objekt. Forventet (navn, [kontrollId]), mottok " + info);
             }
@@ -250,7 +250,7 @@ public class Legesystem {
                 pasient = pasientListe.hent(i);
                 break;
               }
-              
+
             }
 
             //Sjekker type og lar lege skrive ny resept.
