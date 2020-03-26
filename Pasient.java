@@ -41,4 +41,9 @@ class Pasient {
 
     return resepter;
   }
+  
+  @Override
+  public String toString(){
+  return super.toString() + "\n Navn: " +  hentNavn() + "\n id: " + hentid() + "\n fodselsNr" + hentFodselsnr();
+  }
 }
