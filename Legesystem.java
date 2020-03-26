@@ -79,7 +79,7 @@ public class Legesystem {
         System.out.println(e);
         System.out.println("Det er ikke et gyldig valg.");
       }
-    }
+ 
   //Les-fra-fil metode
   private static void lesFraFil(File fil) {
 
