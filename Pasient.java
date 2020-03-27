@@ -35,9 +35,9 @@ class Pasient {
   }
 
   public Stabel<Resept> hentResepter() {
-    for (int i = 0; i < resepter.stoerrelse(); i++) {
-      System.out.println(resepter.hent(i));
-    }
+    //for (int i = 0; i < resepter.stoerrelse(); i++) {
+    //  System.out.println(resepter.hent(i));
+    //}
 
     return resepter;
   }
