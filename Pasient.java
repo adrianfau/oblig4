@@ -26,7 +26,7 @@ public class Pasient {
     return id;
   }
 
-  public void leggTilRespet(Resept r) {
+  public void leggTilResepet(Resept r) {
     resepter.leggPaa(r);
   }
 
@@ -41,9 +41,9 @@ public class Pasient {
 
     return resepter;
   }
-  
+
   @Override
   public String toString(){
-  return toString() + "Navn: " +  hentNavn() + "\n id: " + hentid() + "\n fodselsNr" + hentFodselsnr();
+  return toString() + "Navn: " +  hentNavn() + "\n id: " + hentId() + "\n fodselsNr" + hentFodselsnr();
   }
 }
