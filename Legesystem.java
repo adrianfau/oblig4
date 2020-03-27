@@ -657,7 +657,7 @@ public class Legesystem {
     }
 
 
-    if (legeListe.erTom()){
+    if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen leger! Resept kan ikke oprettes.");
       return;
     }
@@ -672,7 +672,6 @@ public class Legesystem {
     Lege lege = null;
     String legeNavn = nyReseptScanner.nextLine();
 
-
     for (Lege b : legeListe) {
       if (b.hentNavn().equals(legeNavn)){
         lege = b;
@@ -681,20 +680,20 @@ public class Legesystem {
       }
     }
 
-    if (legeListe.erTom()){
+    if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen legemidler! Resept kan ikke oprettes.");
       return;
     }
 
     System.out.println("Hvilket legemiddel skal brukes?");
-    for (Legemiddel legemiddel : legeListe) {
+    for (Legemiddel legemiddel : legemiddelListe) {
       System.out.println(legemiddel.toString());
     }
 
     Legemiddel legemiddel = null;
     String legemiddelNavn = nyReseptScanner.nextLine();
 
-    for (Legemiddel c : legeListe) {
+    for (Legemiddel c : legemiddelListe) {
       if (c.hentNavn().equalsIgnoreCase(legemiddelNavn)) {
         legemiddel = c;
       } else {
@@ -716,27 +715,24 @@ public class Legesystem {
     String input3 = nyReseptScanner.nextLine();
 
     if(input3.equals("1")) {
-      Resept blaaResept = new BlaaResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(blaaResept);
+      Resept blaaResept = lege.skrivBlaaResept(legemiddel, pasient, reit);
       pasient.leggTilResept(blaaResept);
-      resepter.leggTil(blaaResept);
+      reseptListe.leggTil(blaaResept);
       System.out.println("Resepten ble lagret");
     } else if (input3.equals("2")) {
-      Resept pResept = new PResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(pResept);
+      Resept pResept = lege.skrivPResept(legemiddel, pasient);
       pasient.leggTilResept(pResept);
-      resepter.leggTil(pResept);
+      reseptListe.leggTil(pResept);
       System.out.println("Resepten ble lagret");
     } else if (input3.equals("3")){
-      Resept mResept = new MilitaerResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(mResept);
+      Resept mResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
       pasient.leggTilResept(mResept);
-      resepter.leggTil(mResept);
+      reseptListe.leggTil(mResept);
       System.out.println("Resepten ble lagret");
     } else {
-      System.oput.println("Du har skrevet feil input.");
+      System.out.println("Du har skrevet feil input.");
     }
-    
+
   }
 
 }
