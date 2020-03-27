@@ -11,7 +11,7 @@ class MilitaerResept extends HvitResept {
   @Override
   public String toString() {
     return "MILITAERRESEPT\n" + "Farge: " + this.farge() +  " Legemiddel: "
-     + legemiddel.toString() + "\n Lege: " + utskrivendeLege.toString() + "\n ReseptId: "
+     + legemiddel.toString() + "Lege: " + utskrivendeLege.toString() + "\nReseptId: "
       + this.hentId() + " PasientId: " + this.hentPasientId() + " Pris aa betale: "
        + this.prisAaBetale() + " Reit: " + this.hentReit() + "\n";
   }

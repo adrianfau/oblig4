@@ -15,8 +15,8 @@ class Spesialist extends Lege implements Godkjenningsfritak {
 
   @Override
   public String toString() {
-    return "SPESIALIST \n" + " Navn: " + this.hentNavn() + " KontrollId: "
-     + this.hentKontrollID() + "\n";
+    return "SPESIALIST" + " Navn: " + this.hentNavn() + " KontrollId: "
+     + this.hentKontrollID();
   }
 }
 

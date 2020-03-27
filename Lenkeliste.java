@@ -11,42 +11,64 @@ class Lenkeliste<T> implements Liste<T>{
   }
 
   //henter ut foerste node
-  public Node getStartNode() {
-    return ny_node;
-  }
+  //public Node getStartNode() {
+  //  return ny_node;
+  //}
 
-  @Override
-  public Iterator<T> iterator() {
-    return new LenkelisteIterator<>(this);
-  }
+  //@Override
+  //public Iterator<T> iterator() {
+  //  return new LenkelisteIterator<>(this);
+  //}
 
-  public class LenkelisteIterator<T> implements Iterator<T> {
-    Node innevaerendeNode;
+  //public class LenkelisteIterator<T> implements Iterator<T> {
+  //  Node innevaerendeNode;
 
-    //Initierer peker/innevaerende node til starten av lenkelisten
-    public LenkelisteIterator(Lenkeliste lenkeliste) {
-      innevaerendeNode = lenkeliste.getStartNode();
+  //  //Initierer peker/innevaerende node til starten av lenkelisten
+  //  public LenkelisteIterator(Lenkeliste lenkeliste) {
+  //    innevaerendeNode = lenkeliste.getStartNode();
+  //  }
+
+  //  @Override
+  //  //Returnerer false hvis neste element ikke eksisterer
+  //  public boolean hasNext() {
+  //    if(innevaerendeNode != null) {
+  //      return true;
+  //    }
+  //    return false;
+  //  }
+
+  //  @Override
+  //  //returnerer data i gjeldende node og oppdaterer pekeren til neste node
+  //  public T next() {
+  //    if(innevaerendeNode.t != null) {
+  //      T innhold = (T) innevaerendeNode.t;
+  //      innevaerendeNode = innevaerendeNode.node;
+  //      return innhold;
+  //    }
+  //    return null;
+  //  }
+  //}
+  public class LenkelisteIterator implements Iterator<T>{
+    private Liste<T> liste;
+    private int indeks = 0;
+
+    public LenkelisteIterator(Liste<T> l){
+      liste = l;
     }
 
     @Override
-    //Returnerer false hvis neste element ikke eksisterer
-    public boolean hasNext() {
-      if(innevaerendeNode != null) {
-        return true;
-      }
-      return false;
+    public boolean hasNext(){
+      return indeks<liste.stoerrelse();
     }
 
     @Override
-    //returnerer data i gjeldende node og oppdaterer pekeren til neste node
-    public T next() {
-      if(innevaerendeNode.t != null) {
-        T innhold = (T) innevaerendeNode.t;
-        innevaerendeNode = innevaerendeNode.node;
-        return innhold;
-      }
-      return null;
+    public T next(){
+      return liste.hent(indeks++);
     }
+  }
+
+  public LenkelisteIterator iterator(){
+    return new LenkelisteIterator(this);
   }
 
   //Sjekker størrelsen av opgitt liste

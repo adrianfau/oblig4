@@ -19,6 +19,7 @@ public class Legesystem {
   }
 
   public static void E4() {
+    doE4();
     return;
   }
 
@@ -31,14 +32,18 @@ public class Legesystem {
     //Alle disse hadde vært lettere med iterator, men oen oppgaven ble gjort etter denne
     //Printer antall vanedannende og narkotiske
 
-    //System.out.println("Reseptliste size: " + reseptListe.stoerrelse());
-    //try {
-    //  for (int m = 0; m < reseptListe.stoerrelse(); m++) {
-    //    System.out.println(m);
-    //  }
-    //} catch(NullPointerException e) {
-    //  System.out.println("Feil i antallnarkotiske");
-    //}
+    System.out.println("Reseptliste size: " + reseptListe.stoerrelse());
+    try {
+      for (int m = 0; m < reseptListe.stoerrelse(); m++) {
+        if (reseptListe.hent(m) != null && reseptListe.hent(m).hentLegemiddel() instanceof Narkotisk) {
+          antallNarkotiske++;
+        } else if (reseptListe.hent(m) != null && reseptListe.hent(m).hentLegemiddel() instanceof Vanedannende) {
+          antallVanedannende++;
+        }
+      }
+    } catch(NullPointerException e) {
+      System.out.println("Feil i antallnarkotiske");
+    }
 
     System.out.println("\nAntall Narkotiske Resepter: " + antallNarkotiske);
     System.out.println("Antall Vanedannende Resepter: " + antallVanedannende);
@@ -489,7 +494,7 @@ public class Legesystem {
 
   }
    //Man, E4. LeggtilPasient,Leger,Legemiddler, og Resepter
-  public static void E4(){
+  public static void doE4(){
     Scanner input2 = new Scanner (System.in);
 
     System.out.println("oonsker du aa legge til: ");
@@ -552,7 +557,7 @@ public class Legesystem {
     String foodselsnummer = nyPasientInput.nextLine();
 
     Pasient nyPasient = new Pasient(navn, foodselsnummer);
-    pasientListe.leggTil(nyPasientInput); //navnet på objektet, trenger info
+    pasientListe.leggTil(nyPasient); //navnet på objektet, trenger info
     System.out.println("Pasienten ble oprettet");
   }
 
@@ -610,10 +615,10 @@ public class Legesystem {
 
 
     } else if (typeLegemiddler.equals("3")){
-      System.out.println("Hva er navnet til normal leggemiddel: ");
+      System.out.println("Hva er navnet til vanlig leggemiddel: ");
       String navn = nyLegemidler.nextLine();
 
-      System.out.println("Hva er prisen til normal legemiddel: ");
+      System.out.println("Hva er prisen til vanlig legemiddel: ");
       double pris = nyLegemidler.nextDouble();
       nyLegemidler.nextLine();
 
@@ -621,7 +626,7 @@ public class Legesystem {
       double virkestoff = nyLegemidler.nextDouble();
       nyLegemidler.nextLine();
 
-      Legemiddel legemiddel = new Legemiddel(navn, pris, virkestoff);
+      Vanlig legemiddel = new Vanlig(navn, pris, virkestoff);
       legemiddelListe.leggTil(legemiddel);
       System.out.println("Vanlig legemidlet ble oprettet");
     } else {
@@ -633,14 +638,14 @@ public class Legesystem {
   public static void leggTilResept(){
     Scanner nyReseptScanner = new Scanner(System.in);
 
-    if (pasientListe.erTom()) {
+    if (pasientListe.stoerrelse() == 0) {
       System.out.println("Det finnes ingen pasienter. Resept kan ikke oprettes.");
       return;
     }
 
     System.out.println("Hvilket pasient skal utskrives en resept til?");
     for (Pasient pasient : pasientListe) {
-      System.out.println(pasient.hentId() + ": " + pasient.toString());
+      System.out.println(pasient.toString());
     }
 
     Pasient pasient = null;
@@ -648,6 +653,7 @@ public class Legesystem {
     nyReseptScanner.nextLine();
 
     for (Pasient a : pasientListe) {
+      //System.out.println(a.hentId());
       if (a.hentId() == pasientId) {
         pasient = a;
       } else {
@@ -666,7 +672,6 @@ public class Legesystem {
     for (Lege lege : legeListe) {
       System.out.println(lege.toString());
     }
-
 
     Lege lege = null;
     String legeNavn = nyReseptScanner.nextLine();
@@ -714,20 +719,28 @@ public class Legesystem {
     String input3 = nyReseptScanner.nextLine();
 
     if(input3.equals("1")) {
-      Resept blaaResept = lege.skrivBlaaResept(legemiddel, pasient, reit);
-      pasient.leggTilResept(blaaResept);
-      reseptListe.leggTil(blaaResept);
-      System.out.println("Resepten ble lagret");
+      try {
+        Resept blaaResept = lege.skrivBlaaResept(legemiddel, pasient, reit);
+        pasient.leggTilResept(blaaResept);
+        reseptListe.leggTil(blaaResept);
+        System.out.println("Resepten ble lagret");
+      } catch(UlovligUtskrift e) {
+        System.out.println(e);
+      }
     } else if (input3.equals("2")) {
-      Resept pResept = lege.skrivPResept(legemiddel, pasient);
-      pasient.leggTilResept(pResept);
-      reseptListe.leggTil(pResept);
-      System.out.println("Resepten ble lagret");
+      try {
+        Resept pResept = lege.skrivPResept(legemiddel, pasient);
+        pasient.leggTilResept(pResept);
+        reseptListe.leggTil(pResept);
+        System.out.println("Resepten ble lagret");
+      } catch (UlovligUtskrift e) {}
     } else if (input3.equals("3")){
-      Resept mResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
-      pasient.leggTilResept(mResept);
-      reseptListe.leggTil(mResept);
-      System.out.println("Resepten ble lagret");
+      try {
+        Resept mResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
+        pasient.leggTilResept(mResept);
+        reseptListe.leggTil(mResept);
+        System.out.println("Resepten ble lagret");
+      } catch (UlovligUtskrift e) {}
     } else {
       System.out.println("Du har skrevet feil input.");
     }

@@ -76,7 +76,7 @@ class Lege implements Comparable<Lege>{
 
   @Override
   public String toString() {
-    return "LEGE \n" + " Navn: " + this.hentNavn() + "\n";
+    return "LEGE" + " Navn: " + this.hentNavn();
   }
 
   @Override
