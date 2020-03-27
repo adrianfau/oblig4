@@ -408,17 +408,4 @@ public class Legesystem {
 
   }
 
-
-  //private void Statistikk() {
-  //  for (Lege lege : legeListe) {
-  //    legeListe = lege.hentUtskrevedeResepter();
-  //    for (Resept resept : legeListe) {
-  //      if (resept.hentLegemiddel() instanceof Narkotisk) {
-  //        System.out.println("Denne legen har skrevet ut et narkotisk legemiddel");
-  //        break;
-  //      }
-  //    }
-  //  }
-  //}
-
 }
