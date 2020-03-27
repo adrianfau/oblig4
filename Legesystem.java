@@ -193,6 +193,8 @@ public class Legesystem {
 
     }
     
+  }
+  
   private void brukResept() {
     int antallPasienter = 0;
     Scanner scanner = new Scanner(System.in);
