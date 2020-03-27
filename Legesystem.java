@@ -15,6 +15,32 @@ public class Legesystem {
   private static int antallNarkotiske = 0;
 
   public static void E3() {
+
+    System.out.println("Alle pasienter\n");
+
+    for (int i = 0; i < pasientListe.stoerrelse(); i++) {
+      Pasient pasient = pasientListe.hent(i);
+      System.out.println(pasient.toString());
+    }
+
+    System.out.println("Alle legemiddler\n");
+    for (int i = 0; i < legemiddelListe.stoerrelse(); i++) {
+      Legemiddel legemiddel = legemiddelListe.hent(i);
+      System.out.println(legemiddel.toString());
+    }
+
+    System.out.println("Alle leger\n");
+    for (int i = 0; i < legeListe.stoerrelse(); i++) {
+      Lege lege = legeListe.hent(i);
+      System.out.println(lege.toString());
+    }
+
+    System.out.println("Alle resepter\n");
+    for (int i = 0; i < reseptListe.stoerrelse(); i++) {
+      Resept resept = reseptListe.hent(i);
+      System.out.println(resept.toString());
+    }
+
     return;
   }
 
@@ -90,6 +116,7 @@ public class Legesystem {
   }
 
   public static void E8() { //Skriv til fil
+
     FileWriter w = null;
     PrintWriter writer = null;
     try {
