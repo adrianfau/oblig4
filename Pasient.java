@@ -26,7 +26,7 @@ public class Pasient {
     return id;
   }
 
-  public void leggTilResepet(Resept r) {
+  public void leggTilResept(Resept r) {
     resepter.leggPaa(r);
   }
 
