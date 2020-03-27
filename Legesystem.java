@@ -83,6 +83,7 @@ public class Legesystem {
   }
 
   //Les-fra-fil metode
+  //Har tatt bort void, men er ikke helt sikker om vi skal gjøre det.
   private lesFraFil(File fil) {
 
     Scanner scanner = null;
