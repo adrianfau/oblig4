@@ -276,36 +276,42 @@ public class Legesystem {
 
       //-----RESEPT------
       if(valgtPasient >= 0 && valgtPasient < antallPasienter) {
-        Pasient pasient = pasientListe.hent(valgtPasient);
-        System.out.println("Valgt pasient: " + pasient.hentNavn() + "(fnr" + pasient.hentFodselsnr() + ")\n" + "Hvilken resept vil du bruke?");
+          Pasient pasient = pasientListe.hent(valgtPasient);
 
-        int antalltResepter = 0;
+          if(pasient.hentResepter().stoerrelse() == 0) {
+              System.out.println("Pasienten har ingen resepter. Gaar tilbake til hovedmeny");
+          }
+          else {
+              System.out.println("Valgt pasient: " + pasient.hentNavn() + "(fnr" + pasient.hentFodselsnr() + ")\n" + "Hvilken resept vil du bruke?");
 
-        for (Resept resept : pasient.hentResepter()) {
-          System.out.println(antalltResepter + ": " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
-          antalltResepter++;
-        }
+              int antalltResepter = 0;
 
-        int valgtResept;
+              for (Resept resept : pasient.hentResepter()) {
+                  System.out.println(antalltResepter + ": " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
+                  antalltResepter++;
+              }
 
-        try {
-          valgtResept = scanner.nextInt();
-        } catch (NumberFormatException e) {
-          valgtResept = -1;
-        }
+              int valgtResept;
 
-        Resept oensketResept = pasient.hentResepter().hent(valgtResept);
+              try {
+                  valgtResept = scanner.nextInt();
+              } catch (NumberFormatException e) {
+                  valgtResept = -1;
+              }
 
-        try {
-          oensketResept.bruk();
+              Resept oensketResept = pasient.hentResepter().hent(valgtResept);
 
-          System.out.println("Brukte resept paa " + oensketResept.hentLegemiddel().hentNavn() + ". Antall gjenværende reit: " + oensketResept.hentReit());
+              try {
+                  pasient.resepter.hent(valgtResept).bruk();
 
-        } catch (Exception e) {
-          System.out.println("Kunne ikke bruke resept paa " + oensketResept.hentLegemiddel().hentNavn() + " (ingen gjenvaerende reit).");
-        }
+                  System.out.println("Brukte resept paa " + oensketResept.hentLegemiddel().hentNavn() + ". Antall gjenværende reit: " + oensketResept.hentReit());
+
+              } catch (Exception e) {
+                  System.out.println("Kunne ikke bruke resept paa " + oensketResept.hentLegemiddel().hentNavn() + " (ingen gjenvaerende reit).");
+              }
+          }
       } else {
-        System.out.println("Ugyldig valg. Gaar tilbake til hovedmeny");
+          System.out.println("Ugyldig valg. Gaar tilbake til hovedmeny");
       }
 
   }
@@ -314,6 +320,7 @@ public class Legesystem {
     //Fikk opprinnelig en uforståelig feil knyttet til lesing av filen inndata.txt som
     //Jeg fikset ved å laste ned inndata.txt på nytt. Vet ikke om dette kan vedvare?
     Scanner scanner = null;
+    System.out.println("\nLeser fra fil:\n");
 
     try {
       scanner = new Scanner(fil);
@@ -513,7 +520,7 @@ public class Legesystem {
       }
 
     }
-    System.out.println("Fil lest! Antall lest fra fil:");
+    System.out.println("Fil " + fil.getName() + " lest! Antall lest fra fil:");
     System.out.println("Pasienter: " + pasientListe.stoerrelse());
     System.out.println("Legemidler: " + legemiddelListe.stoerrelse());
     System.out.println("Leger: " + legeListe.stoerrelse());
