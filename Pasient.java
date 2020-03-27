@@ -1,4 +1,4 @@
-class Pasient {
+public class Pasient {
   String navn;
   String fodselsNr;
   int id;

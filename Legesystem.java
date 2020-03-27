@@ -11,8 +11,8 @@ public class Legesystem {
   //I hvert bruk av disse listene brukes ikke for-each da dette ikke ble implementert av gruppemedlem før nær siste dag
 
   //Lager statistikk - tellere for programmet
-  private static int antallVanedannende;
-  private static int antallNarkotiske;
+  private static int antallVanedannende = 0;
+  private static int antallNarkotiske = 0;
 
   public static void E3() {
     return;
@@ -23,13 +23,25 @@ public class Legesystem {
   }
 
   public static void E5() {
+    brukResept();
     return;
   }
 
-  public static void E6() {
+  public static void E6() { //Statistikk
+    //Alle disse hadde vært lettere med iterator, men oen oppgaven ble gjort etter denne
     //Printer antall vanedannende og narkotiske
-    System.out.println("Antall utskrevede vandedannende legemidler: " + antallVanedannende);
-    System.out.println("Antall utskrevede narkotiske legemidler: " + antallNarkotiske);
+
+    //System.out.println("Reseptliste size: " + reseptListe.stoerrelse());
+    //try {
+    //  for (int m = 0; m < reseptListe.stoerrelse(); m++) {
+    //    System.out.println(m);
+    //  }
+    //} catch(NullPointerException e) {
+    //  System.out.println("Feil i antallnarkotiske");
+    //}
+
+    System.out.println("\nAntall Narkotiske Resepter: " + antallNarkotiske);
+    System.out.println("Antall Vanedannende Resepter: " + antallVanedannende);
 
     //Printer alle leger som har skrevet ut narkotiske, inkl hvor mange
     System.out.println("Leger:");
@@ -52,26 +64,27 @@ public class Legesystem {
     }
 
     //Printer alle pasienter som har fått narkotiske, inkl hvor mange
-    System.out.println("Pasienter:");
-    for (int i = 0; i < pasientListe.stoerrelse(); i++) {
-      Pasient tempPas = pasientListe.hent(i);
+    System.out.println("\nPasienter:");
+    for (int k = 0; k < pasientListe.stoerrelse(); k++) {
+      Pasient tempPas = pasientListe.hent(k);
       int tempPasNark = 0;
       Liste<Resept> tempPasListe = tempPas.hentResepter();
 
-      for (int j = 0; j < tempPasListe.stoerrelse(); j++) {
-        if (tempPasListe.hent(j).hentLegemiddel() instanceof Narkotisk) {
+      for (int l = 0; l < tempPasListe.stoerrelse(); l++) {
+        if (tempPasListe.hent(l).hentLegemiddel() instanceof Narkotisk) {
           tempPasNark++;
         }
       }
       if (tempPasNark > 0) {
-        System.out.println("Pasient " + tempPas.hentNavn() + " har fått utskrevet "
+        System.out.println("Pasient " + tempPas.hentNavn() + " har faatt utskrevet "
         + tempPasNark + " narkotiske resepter");
       }
     }
+    System.out.println("\n");
 
   }
 
-  public static void E8() {
+  public static void E8() { //Skriv til fil
     FileWriter w = null;
     PrintWriter writer = null;
     try {
@@ -118,21 +131,26 @@ public class Legesystem {
 
       writer.println("# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])");
       while (l < reseptListe.stoerrelse()) {
-        Resept temp = reseptListe.hent(l);
-        if (temp instanceof PResept) {
-          writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
-           + "," + temp.hentPasientId() + "," + "p");
-        } else if (temp instanceof MilitaerResept) {
-          writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
-           + "," + temp.hentPasientId() + "," + "militaer" + "," + temp.hentReit());
-        } else if (temp instanceof HvitResept) {
-          writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
-           + "," + temp.hentPasientId() + "," + "hvit" + "," + temp.hentReit());
-        } else if (temp instanceof BlaaResept) {
-          writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
-           + "," + temp.hentPasientId() + "," + "blaa" + "," + temp.hentReit());
+        try {
+          Resept temp = reseptListe.hent(l);
+          if (temp instanceof PResept) {
+            writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
+             + "," + temp.hentPasientId() + "," + "p");
+          } else if (temp instanceof MilitaerResept) {
+            writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
+             + "," + temp.hentPasientId() + "," + "militaer" + "," + temp.hentReit());
+          } else if (temp instanceof HvitResept) {
+            writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
+             + "," + temp.hentPasientId() + "," + "hvit" + "," + temp.hentReit());
+          } else if (temp instanceof BlaaResept) {
+            writer.println(temp.hentLegemiddel().hentId() + "," + temp.hentLege().hentNavn()
+             + "," + temp.hentPasientId() + "," + "blaa" + "," + temp.hentReit());
+          }
+          l++;
+        } catch (Exception e) {
+          System.out.println(e + " Feilet aa skrive resept til fil: ");
+          l++;
         }
-        l++;
       }
     } catch (IOException e) {
       System.out.println(e);
@@ -143,7 +161,6 @@ public class Legesystem {
   }
 
   public static void main(String[] args){
-
     File innFil = new File("myeinndata.txt");
     lesFraFil(innFil);
     boolean avslutt = false;
@@ -192,10 +209,10 @@ public class Legesystem {
       }
 
     }
-    
+
   }
-  
-  private void brukResept() {
+
+  private static void brukResept() {
     int antallPasienter = 0;
     Scanner scanner = new Scanner(System.in);
 
@@ -246,7 +263,7 @@ public class Legesystem {
         Resept oensketResept = pasient.hentResepter().hent(valgtResept);
 
         try {
-          pasient.reseptListe.hent(valgtResept).bruk();
+          oensketResept.bruk();
 
           System.out.println("Brukte resept paa " + oensketResept.hentLegemiddel().hentNavn() + ". Antall gjenværende reit: " + oensketResept.hentReit());
 
@@ -256,7 +273,6 @@ public class Legesystem {
       } else {
         System.out.println("Ugyldig valg. Gaar tilbake til hovedmeny");
       }
-    }
 
   }
   //Les-fra-fil metode
@@ -330,14 +346,12 @@ public class Legesystem {
               } else if(legemiddel[1].compareTo("vanedannende") == 0){
                 styrke = Integer.parseInt(info[4]);
                 x = new Vanedannende(navn, pris, virkestoff, styrke);
-                antallVanedannende++;
 
                 legemiddelListe.leggTil(x);
 
               } else if (legemiddel[1].compareTo("narkotisk") == 0){
                 styrke = Integer.parseInt(info[4]);
                 x = new Narkotisk(navn, pris, virkestoff, styrke);
-                antallNarkotiske++;
 
                 legemiddelListe.leggTil(x);
 
@@ -450,6 +464,7 @@ public class Legesystem {
                 }
 
                 reseptListe.leggTil(nyResept);
+                //System.out.println(nyResept.hentLegemiddel().hentNavn() + " " + lege.hentNavn() + " " + nyResept.hentPasientId());
               } catch(UlovligUtskrift e) {}
 
           } catch(Exception f) {
@@ -474,4 +489,3 @@ public class Legesystem {
   }
 
 }
-
