@@ -502,11 +502,11 @@ public class Legesystem {
 
     if (leggTilValg.equals("1")){
       leggTilLege();
-    } else if (leggTil.equals("2")) {
+    } else if (leggTilValg.equals("2")) {
       leggTilPasient();
-    } else if (leggTil.equals("3")) {
+    } else if (leggTilValg.equals("3")) {
       leggTilLegemiddel();
-    } else if (leggTil.equals("4")) {
+    } else if (leggTilValg.equals("4")) {
       leggTilResept();
     } else {
       System.out.println("Du har skrevet ugyldig input");
@@ -514,13 +514,13 @@ public class Legesystem {
   }
 
 
-  public void leggTilLege(){
+  public static void leggTilLege(){
     Scanner nylegescan = new Scanner(System.in);
 
     System.out.println("Hva er legens navn: ");
     String navn = nylegescan.nextLine();
 
-    System.out.println("Er denne legen en fastlege");
+    System.out.println("Er denne legen spesialist");
     System.out.println("Tast 1 for ja");
     System.out.println("Tast 2 for nei");
     String legeType = nylegescan.nextLine();
@@ -530,7 +530,7 @@ public class Legesystem {
       System.out.println("Tast inn et kontrollid ");
       int kontrollid = nylegescan.nextInt();
       nylegescan.nextLine();
-      Lege nyLege = new FastLege(navn, kontrollid);
+      Lege nyLege = new Spesialist(navn, kontrollid);
       legeListe.leggTil(nyLege);
     } else if (legeType.equals("2")){
       Lege nyLege = new Lege(navn);
@@ -542,7 +542,7 @@ public class Legesystem {
   }
 
 
-  public void leggTilPasient(){
+  public static void leggTilPasient(){
     Scanner nyPasientInput = new Scanner(System.in);
 
     System.out.println("Hva er navnet til pasienten: ");
@@ -557,7 +557,7 @@ public class Legesystem {
   }
 
 
-  public void leggTilLegemiddel(){
+  public static void leggTilLegemiddel(){
     Scanner nyLegemidler = new Scanner(System.in);
 
     System.out.println("Hva slags type legemiddel er det?");
@@ -604,7 +604,7 @@ public class Legesystem {
       int styrke = nyLegemidler.nextInt();
       nyLegemidler.nextLine();
 
-      Vanedannende vanedannende = new LegemiddelB(navn, pris, virkestoff, styrke);
+      Vanedannende vanedannende = new Vanedannende(navn, pris, virkestoff, styrke);
       legemiddelListe.leggTil(vanedannende);
       System.out.println("Vanedannende legemidlet ble oprettet");
 
@@ -621,7 +621,7 @@ public class Legesystem {
       double virkestoff = nyLegemidler.nextDouble();
       nyLegemidler.nextLine();
 
-      Legemiddel legemiddel = new LegemiddelC(navn, pris, virkestoff);
+      Legemiddel legemiddel = new Legemiddel(navn, pris, virkestoff);
       legemiddelListe.leggTil(legemiddel);
       System.out.println("Vanlig legemidlet ble oprettet");
     } else {
@@ -630,7 +630,7 @@ public class Legesystem {
   }
   //kodeblokken
 
-  public void leggTilResept(){
+  public static void leggTilResept(){
     Scanner nyReseptScanner = new Scanner(System.in);
 
     if (pasientListe.erTom()) {
@@ -648,14 +648,13 @@ public class Legesystem {
     nyReseptScanner.nextLine();
 
     for (Pasient a : pasientListe) {
-      if (a.hentId() = pasientid) {
-        pasient = p;
+      if (a.hentId() == pasientId) {
+        pasient = a;
       } else {
         System.out.println("Pasienten finnes ikke.");
         return;
       }
     }
-
 
     if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen leger! Resept kan ikke oprettes.");
