@@ -180,10 +180,11 @@ public class Legesystem {
           }
           l++;
         } catch (Exception e) {
-          System.out.println(e + " Feilet aa skrive resept til fil: ");
+          System.out.println(e + " | Feilet aa skrive resept - Ugyldig legemiddel?");
           l++;
         }
       }
+      System.out.println("\nSkrevet til fil!\n");
     } catch (IOException e) {
       System.out.println(e);
     } finally {
