@@ -79,11 +79,11 @@ public class Legesystem {
         System.out.println(e);
         System.out.println("Det er ikke et gyldig valg.");
       }
-      
+
   }
 
   //Les-fra-fil metode
-  private void lesFraFil(File fil) {
+  private lesFraFil(File fil) {
 
     Scanner scanner = null;
 
@@ -339,7 +339,7 @@ public class Legesystem {
   }
 
 
-  public static void leggTilPasient(){
+  public void leggTilPasient(){
     Scanner nyPasientInput = new Scanner(System.in);
 
     System.out.println("Hva er navnet til pasienten: ");
@@ -354,7 +354,7 @@ public class Legesystem {
   }
 
 
-  public static void leggTilLegemiddel(){
+  public void leggTilLegemiddel(){
     Scanner nyLegemidler = new Scanner(System.in);
 
     System.out.println("Hva slags type legemiddel er det?");
@@ -427,8 +427,8 @@ public class Legesystem {
   }
   //kodeblokken
 
-  public static void leggTilResept(){
-    Scanner nyReseptScanner = New Scanner(System.in);
+  public void leggTilResept(){
+    Scanner nyReseptScanner = new Scanner(System.in);
 
     if (pasientListe.erTom()) {
       System.out.println("Det finnes ingen pasienter. Resept kan ikke oprettes.");
@@ -471,9 +471,9 @@ public class Legesystem {
 
 
     for (Lege b : legeListe) {
-      if (b.hentNavn()equal(legeNavn)){
+      if (b.hentNavn().equals(legeNavn)){
         lege = b;
-      } else {
+      }else{
         System.out.println("Legen finnes ikke.");
       }
     }
@@ -491,7 +491,7 @@ public class Legesystem {
     Legemiddel legemiddel = null;
     String legemiddelNavn = nyReseptScanner.nextLine();
 
-    for Legemiddel c : legeListe) {
+    for (Legemiddel c : legeListe) {
       if (c.hentNavn().equalsIgnoreCase(legemiddelNavn)) {
         legemiddel = c;
       } else {
@@ -518,13 +518,13 @@ public class Legesystem {
       pasient.leggTilResept(blaaResept);
       resepter.leggTil(blaaResept);
       System.out.println("Resepten ble lagret");
-    }else if (input3.equals("2") {
+    } else if (input3.equals("2")) {
       Resept pResept = new PResept(legemiddel, lege, pasient, reit);
       lege.leggTilResept(pResept);
       pasient.leggTilResept(pResept);
       resepter.leggTil(pResept);
       System.out.println("Resepten ble lagret");
-    }else if (input3.equals("3")){
+    } else if (input3.equals("3")){
       Resept mResept = new MilitaerResept(legemiddel, lege, pasient, reit);
       lege.leggTilResept(mResept);
       pasient.leggTilResept(mResept);
@@ -545,7 +545,6 @@ public class Legesystem {
   //        break;
   //      }
   //    }
-  //  }
-  //}
-
+  }
 }
+
