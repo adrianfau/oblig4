@@ -657,7 +657,7 @@ public class Legesystem {
     }
 
 
-    if (legeListe.erTom()){
+    if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen leger! Resept kan ikke oprettes.");
       return;
     }
@@ -672,7 +672,6 @@ public class Legesystem {
     Lege lege = null;
     String legeNavn = nyReseptScanner.nextLine();
 
-
     for (Lege b : legeListe) {
       if (b.hentNavn().equals(legeNavn)){
         lege = b;
@@ -681,20 +680,20 @@ public class Legesystem {
       }
     }
 
-    if (legeListe.erTom()){
+    if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen legemidler! Resept kan ikke oprettes.");
       return;
     }
 
     System.out.println("Hvilket legemiddel skal brukes?");
-    for (Legemiddel legemiddel : legeListe) {
+    for (Legemiddel legemiddel : legemiddelListe) {
       System.out.println(legemiddel.toString());
     }
 
     Legemiddel legemiddel = null;
     String legemiddelNavn = nyReseptScanner.nextLine();
 
-    for (Legemiddel c : legeListe) {
+    for (Legemiddel c : legemiddelListe) {
       if (c.hentNavn().equalsIgnoreCase(legemiddelNavn)) {
         legemiddel = c;
       } else {
