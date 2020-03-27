@@ -18,30 +18,31 @@ public class Legesystem {
 
     System.out.println("Alle pasienter\n");
 
-    for (int i = 0; i < pasientListe.stoerrelse(); i++) {
-      Pasient pasient = pasientListe.hent(i);
-      System.out.println(pasient.toString());
-    }
+      for (int i = 0; i < pasientListe.stoerrelse(); i++) {
+        Pasient pasient = pasientListe.hent(i);
+        System.out.println(pasient.toString());
+      }
 
-    System.out.println("Alle legemiddler\n");
-    for (int i = 0; i < legemiddelListe.stoerrelse(); i++) {
-      Legemiddel legemiddel = legemiddelListe.hent(i);
-      System.out.println(legemiddel.toString());
-    }
 
-    System.out.println("Alle leger\n");
-    for (int i = 0; i < legeListe.stoerrelse(); i++) {
-      Lege lege = legeListe.hent(i);
-      System.out.println(lege.toString());
-    }
+      System.out.println("Alle legemiddler\n");
+      for (int i = 0; i < legemiddelListe.stoerrelse(); i++) {
+        Legemiddel legemiddel = legemiddelListe.hent(i);
+        System.out.println(legemiddel.toString());
+      }
 
-    System.out.println("Alle resepter\n");
-    for (int i = 0; i < reseptListe.stoerrelse(); i++) {
-      Resept resept = reseptListe.hent(i);
-      System.out.println(resept.toString());
-    }
+      System.out.println("Alle leger\n");
+      for (int i = 0; i < legeListe.stoerrelse(); i++) {
+        Lege lege = legeListe.hent(i);
+        System.out.println(lege.toString());
+      }
 
-    return;
+      System.out.println("Alle resepter\n");
+      for (int i = 0; i < reseptListe.stoerrelse(); i++) {
+        Resept resept = reseptListe.hent(i);
+        System.out.println(resept.toString());
+      }
+
+      return;
   }
 
   public static void E4() {

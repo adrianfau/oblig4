@@ -44,7 +44,7 @@ public class Pasient {
 
   @Override
   public String toString(){
-  return "PASIENT:\n" + "Navn: " +  this.hentNavn() + "\n id: " + hentId()
-   + "\n fodselsNr: " + hentFodselsnr();
+  return "PASIENT:\n" + "Navn: " +  this.hentNavn() + "\n id: " + this.hentId()
+   + "\n fodselsNr: " + this.hentFodselsnr();
   }
 }
