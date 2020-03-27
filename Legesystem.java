@@ -194,6 +194,7 @@ public class Legesystem {
   }
 
   public static void main(String[] args){
+    //Laster inn myeinndata.txt
     File innFil = new File("myeinndata.txt");
     lesFraFil(innFil);
     boolean avslutt = false;
@@ -678,7 +679,7 @@ public class Legesystem {
       return;
     }
 
-    System.out.println("Hvilket pasient skal utskrives en resept til?");
+    System.out.println("Hvilken pasient skal utskrives en resept til?");
     for (Pasient pasient : pasientListe) {
       System.out.println(pasient.toString());
     }
@@ -688,20 +689,19 @@ public class Legesystem {
     nyReseptScanner.nextLine();
 
     for (Pasient a : pasientListe) {
-      //System.out.println(a.hentId());
       if (a.hentId() == pasientId) {
         pasient = a;
-      } else {
-        System.out.println("Pasienten finnes ikke.");
-        return;
       }
+    }
+    if (pasient == null) {
+      System.out.println("Fant ikke pasienten!");
+      return;
     }
 
     if (legeListe.stoerrelse() == 0){
       System.out.println("Det finnes ingen leger! Resept kan ikke oprettes.");
       return;
     }
-
 
     System.out.println("Hvilken lege utskriver denne resepten? ");
     for (Lege lege : legeListe) {
@@ -714,9 +714,11 @@ public class Legesystem {
     for (Lege b : legeListe) {
       if (b.hentNavn().equals(legeNavn)){
         lege = b;
-      }else{
-        System.out.println("Legen finnes ikke.");
       }
+    }
+    if (lege == null) {
+      System.out.println("Fant ikke legen!");
+      return;
     }
 
     if (legeListe.stoerrelse() == 0){
@@ -735,10 +737,11 @@ public class Legesystem {
     for (Legemiddel c : legemiddelListe) {
       if (c.hentNavn().equalsIgnoreCase(legemiddelNavn)) {
         legemiddel = c;
-      } else {
-        System.out.println("Legemidlet finnes ikke.");
-        return;
       }
+    }
+    if (legemiddel == null) {
+      System.out.println("Fant ikke legemiddel!");
+      return;
     }
 
     System.out.println("Hvor mange ganger kan resepten brukes?");
