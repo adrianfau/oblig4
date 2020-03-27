@@ -27,8 +27,8 @@ class Lege implements Comparable<Lege>{
     else {
       nyHvitResept = new HvitResept(legemiddel, this, pasient, reit);
       utskrevedeResepter.leggTil(nyHvitResept);
+      pasient.leggTilResept(nyHvitResept);
     }
-
     return nyHvitResept;
   }
 
@@ -41,8 +41,8 @@ class Lege implements Comparable<Lege>{
     else {
       nyMilitaerResept = new MilitaerResept(legemiddel, this, pasient, reit);
       utskrevedeResepter.leggTil(nyMilitaerResept);
+      pasient.leggTilResept(nyMilitaerResept);
     }
-
     return nyMilitaerResept;
   }
 
@@ -55,8 +55,8 @@ class Lege implements Comparable<Lege>{
     else {
       nyPResept  = new PResept(legemiddel, this, pasient);
       utskrevedeResepter.leggTil(nyPResept);
+      pasient.leggTilResept(nyPResept);
     }
-
     return nyPResept;
   }
 
@@ -69,8 +69,8 @@ class Lege implements Comparable<Lege>{
     else {
       nyBlaaResept = new BlaaResept(legemiddel, this, pasient, reit);
       utskrevedeResepter.leggTil(nyBlaaResept);
+      pasient.leggTilResept(nyBlaaResept);
     }
-
     return nyBlaaResept;
   }
 
