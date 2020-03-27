@@ -104,7 +104,7 @@ class Lenkeliste<T> implements Liste<T>{
   }
 
   //new, C3
-  //public Iterator<T> iterator(){
-  //  return new LenkelisteIterator();
-  //}
+  public Iterator<T> iterator(){
+    return new LenkelisteIterator();
+  }
 }

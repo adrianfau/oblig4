@@ -34,6 +34,20 @@ class Pasient {
     resepter.taAv();
   }
 
+  public String toString(){
+    String info = "Pasient navn: " + navn + "\n";
+    info = info + "Fodsels nummer: " + fodselsNr + "\n";
+    info = info + "Id: " + id + "\n";
+
+    // info = info + "Resepter: \n";
+    // for (int i = 0; i < resepter.tall; i++) {
+    //   Resept resept = resepter.hent(i);
+    //   info = info + resept.toString() + "\n";
+    // }
+
+    return info;
+  }
+
   public Stabel<Resept> hentResepter() {
     for (int i = 0; i < resepter.stoerrelse(); i++) {
       System.out.println(resepter.hent(i));

@@ -36,6 +36,12 @@ abstract class Legemiddel {
   }
 
   @Override
-  public abstract String toString();
+  public String toString(){
+    String info = "Legemiddel navn: " + navn + "\n";
+    info = info + "Pris " + pris + "\n";
+    info = info + "Virkestoff: " + virkestoff + "\n";
+
+    return info;
+  }
 
 }

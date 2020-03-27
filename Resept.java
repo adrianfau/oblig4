@@ -55,7 +55,13 @@ abstract class Resept {
 
   abstract public double prisAaBetale();
 
-  @Override
-  public abstract String toString();
+  public String toString(){
+    String info = "Legemiddel navn: " + legemiddel.toString() + "\n";
+    info = info + "Lege: " + utskrivendeLege.toString() + "\n";
+    info = info + "Pasient: " + pasient.toString() + "\n";
+    info = info + "Reit: " + reit + "\n";
+
+    return info;
+  }
 
 }

@@ -14,6 +14,33 @@ public class Legesystem {
   private static int antallNarkotiske;
 
   public static void E3(){
+
+    System.out.println("Alle pasienter\n");
+
+    for (int i = 0; i < pasientListe.stoerrelse(); i++) {
+      Pasient pasient = pasientListe.hent(i);
+      System.out.println(pasient.toString());
+    }
+
+
+    System.out.println("Alle legemiddler\n");
+    for (int i = 0; i < legemiddelListe.stoerrelse(); i++) {
+      Legemiddel legemiddel = legemiddelListe.hent(i);
+      System.out.println(legemiddel.toString());
+    }
+
+    System.out.println("Alle leger\n");
+    for (int i = 0; i < legeListe.stoerrelse(); i++) {
+      Lege lege = legeListe.hent(i);
+      System.out.println(lege.toString());
+    }
+
+    System.out.println("Alle resepter\n");
+    for (int i = 0; i < reseptListe.stoerrelse(); i++) {
+      Resept resept = reseptListe.hent(i);
+      System.out.println(resept.toString());
+    }
+
     return;
   }
 
@@ -33,13 +60,28 @@ public class Legesystem {
     return;
   }
 
+  public static void test() {
+
+    Lege legekid = new Lege("legenavn");
+    Lege spesialistkid = new Spesialist("Spesialisten", 234);
+    Legemiddel legemiddellet = new Narkotisk("legemiddelnavn,", 250.0, 4.0, 2);
+    Pasient pasienten = new Pasient("PasientNavn", "16089234567");
+    PResept pr1 = new PResept(legemiddellet, legekid, pasienten);
+
+
+    pasientListe.leggTil(pasienten);
+    legemiddelListe.leggTil(legemiddellet);
+    legeListe.leggTil(legekid);
+    reseptListe.leggTil(pr1);
+  }
+
 
   public static void main(String[] args){
     boolean avslutt = false;
     String input;
     int valg = 0;
     Scanner scan = new Scanner(System.in);
-
+    // test();
     while (!avslutt){
       System.out.println("Vennligst velg en av disse valgmulighetene:"
         + "\n1. Skrive ut en fullstendig oversikt over pasienter, leger, legemidler og resepter"
@@ -79,6 +121,8 @@ public class Legesystem {
         System.out.println(e);
         System.out.println("Det er ikke et gyldig valg.");
       }
+    }
+  }
 
   //Les-fra-fil metode
   private static void lesFraFil(File fil) {
@@ -102,7 +146,7 @@ public class Legesystem {
       if (info[1].compareTo("Pasienter") == 0) {
 
         while(scanner.hasNextLine()) {
-          
+
           try {
             innlest = scanner.nextLine();
             info = innlest.split(",");
@@ -162,7 +206,7 @@ public class Legesystem {
                 styrke = Integer.parseInt(info[4]);
                 x = new Narkotisk(navn, pris, virkestoff, styrke);
                 antallNarkotiske++;
-                
+
                 legemiddelListe.leggTil(x);
 
               }
@@ -196,14 +240,14 @@ public class Legesystem {
 
                 x = new Lege(navn);
                 legeListe.leggTil(x);
-                
+
               } else {
 
                 x = new Spesialist(navn, kontrollid);
                 legeListe.leggTil(x);
-                
+
               }
-              
+
             } catch(Exception e) {
               System.out.println("Ignorerer ugyldig objekt. Forventet (navn, [kontrollId]), mottok " + info);
             }
@@ -250,7 +294,7 @@ public class Legesystem {
                 pasient = pasientListe.hent(i);
                 break;
               }
-              
+
             }
 
             //Sjekker type og lar lege skrive ny resept.
