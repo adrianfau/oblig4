@@ -35,13 +35,19 @@ public class Legesystem {
         Lege lege = legeListe.hent(i);
         System.out.println(lege.toString());
       }
-
       System.out.println("Alle resepter\n");
-      for (int i = 0; i < reseptListe.stoerrelse(); i++) {
-        Resept resept = reseptListe.hent(i);
-        System.out.println(resept.toString());
-      }
 
+      int count = 0;
+      for (int i = 0; i < reseptListe.stoerrelse(); i++) {
+        try {
+          Resept resept = reseptListe.hent(i);
+          System.out.println(resept.toString());
+          count++;
+        } catch(NullPointerException e) {
+          System.out.println("Skipper NullPointerException" + e);
+        }
+      }
+      System.out.println(count);
       return;
   }
 
