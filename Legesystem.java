@@ -72,7 +72,7 @@ public class Legesystem {
     }
 
     System.out.println("\nAntall Narkotiske Resepter: " + antallNarkotiske);
-    System.out.println("Antall Vanedannende Resepter: " + antallVanedannende);
+    System.out.println("Antall Vanedannende Resepter: " + antallVanedannende + "\n");
 
     //Printer alle leger som har skrevet ut narkotiske, inkl hvor mange
     System.out.println("Leger:");
