@@ -726,13 +726,12 @@ public class Legesystem {
       reseptListe.leggTil(pResept);
       System.out.println("Resepten ble lagret");
     } else if (input3.equals("3")){
-      Resept mResept = new MilitaerResept(legemiddel, pasient, reit);
       Resept mResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
       pasient.leggTilResept(mResept);
       reseptListe.leggTil(mResept);
       System.out.println("Resepten ble lagret");
     } else {
-      System.oput.println("Du har skrevet feil input.");
+      System.out.println("Du har skrevet feil input.");
     }
 
   }
