@@ -716,27 +716,25 @@ public class Legesystem {
     String input3 = nyReseptScanner.nextLine();
 
     if(input3.equals("1")) {
-      Resept blaaResept = new BlaaResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(blaaResept);
+      Resept blaaResept = lege.skrivBlaaResept(legemiddel, pasient, reit);
       pasient.leggTilResept(blaaResept);
-      resepter.leggTil(blaaResept);
+      reseptListe.leggTil(blaaResept);
       System.out.println("Resepten ble lagret");
     } else if (input3.equals("2")) {
-      Resept pResept = new PResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(pResept);
+      Resept pResept = lege.skrivPResept(legemiddel, pasient);
       pasient.leggTilResept(pResept);
-      resepter.leggTil(pResept);
+      reseptListe.leggTil(pResept);
       System.out.println("Resepten ble lagret");
     } else if (input3.equals("3")){
-      Resept mResept = new MilitaerResept(legemiddel, lege, pasient, reit);
-      lege.leggTilResept(mResept);
+      Resept mResept = new MilitaerResept(legemiddel, pasient, reit);
+      Resept mResept = lege.skrivMilitaerResept(legemiddel, pasient, reit);
       pasient.leggTilResept(mResept);
-      resepter.leggTil(mResept);
+      reseptListe.leggTil(mResept);
       System.out.println("Resepten ble lagret");
     } else {
       System.oput.println("Du har skrevet feil input.");
     }
-    
+
   }
 
 }
